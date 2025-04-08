@@ -1,12 +1,17 @@
 <?php
-$mysqli = new mysqli("localhost", "root", "", "lucas_backsite", 3306);
+require_once './config/db.php';
 $news = [];
 
 if (!$mysqli->connect_errno) {
-  $stmt = $mysqli->prepare("SELECT title, slug, description, created_at FROM lucas_news ORDER BY created_at DESC LIMIT 5");
-  $stmt->execute();
-  $result = $stmt->get_result();
-  $news = $result->fetch_all(MYSQLI_ASSOC);
+  $statement = $mysqli->prepare("SELECT title, slug, description, created_at FROM lucas_news ORDER BY created_at DESC LIMIT 10");
+
+  if ($statement) {
+    $statement->execute();
+    $result = $statement->get_result();
+    $news = $result->fetch_all(MYSQLI_ASSOC);
+  } else {
+    echo "Erro ao preparar statement: " . $mysqli->error;
+  }
 }
 ?>
 
@@ -26,7 +31,7 @@ if (!$mysqli->connect_errno) {
         <h2><?= htmlspecialchars($item['title']) ?></h2>
         <small><?= date('d/m/Y H:i', strtotime($item['created_at'])) ?></small>
         <p><?= htmlspecialchars($item['description']) ?></p>
-        <a href="noticia.php?slug=<?= urlencode($item['slug']) ?>">Ler mais</a>
+        <a href="./core/list.php?slug=<?= urlencode($item['slug']) ?>">Ler mais</a>
       </div>
     <?php endforeach; ?>
   </div>

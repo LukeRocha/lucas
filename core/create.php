@@ -1,34 +1,43 @@
 <?php
-$mysqli = new mysqli("localhost", "root", "", "lucas_backsite", 3306);
+require_once '../config/db.php';
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-  $title = $_POST['title'] ?? '';
-  $slug = $_POST['slug'] ?? '';
-  $description = $_POST['description'] ?? '';
-  $keywords = $_POST['keywords'] ?? '';
-  $content= $_POST['content'] ?? '';
+$error = '';
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $title = trim($_POST['title'] ?? '');
+  $slug = trim($_POST['slug'] ?? '');
+  $description = trim($_POST['description'] ?? '');
+  $keywords = trim($_POST['keywords'] ?? '');
+  $content = trim($_POST['content'] ?? '');
 
-if($title && $slug && $content) {
-  
-  $statement = $mysqli->prepare(
-    "INSERT INTO lucas_news (title, slug, description, keywords, content, created_at)
-    VALUES (?, ?, ?, ?, ?, NOW())"
-  );
+  $slug = strtolower(preg_replace('/[^a-z0-9-]+/', '-', $slug));
+  $slug = trim($slug, '-');
 
-  $statement->bind_param("sssss", $title, $slug, $description, $keywords, $content);
-  $statement->execute();
+  if ($title && $slug && $content) {
+    $check = $mysqli->prepare("SELECT id FROM lucas_news WHERE slug = ?");
+    $check->bind_param("s", $slug);
+    $check->execute();
+    $checkResult = $check->get_result();
 
-  header("Location: index.php");
-  exit;
+    if ($checkResult->num_rows > 0) {
+      $error = "Já existe uma notícia com esse slug.";
+    } else {
+      $statement = $mysqli->prepare(
+        "INSERT INTO lucas_news (title, slug, description, keywords, content, created_at)
+         VALUES (?, ?, ?, ?, ?, NOW())"
+      );
 
-} else {
-  echo "Por favor preencha os campos obrigatórios";
-}
+      $statement->bind_param("sssss", $title, $slug, $description, $keywords, $content);
+      $statement->execute();
+
+      header("Location: ../index.php");
+      exit;
+    }
+  } else {
+    $error = "Por favor preencha os campos obrigatórios.";
+  }
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -40,6 +49,10 @@ if($title && $slug && $content) {
 <body>
   <div class="container">
     <h1>Criar Nova Notícia</h1>
+
+    <?php if ($error): ?>
+      <p style="color: red;"><?= htmlspecialchars($error) ?></p>
+    <?php endif; ?>
 
     <form method="post" class="form">
       <label>Título:</label>
