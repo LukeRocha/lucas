@@ -8,11 +8,11 @@ if (!$slug) {
   exit;
 }
 
-$stmt = $mysqli->prepare("SELECT * FROM lucas_news WHERE slug = ?");
-$stmt->bind_param("s", $slug);
-$stmt->execute();
+$statement = $mysqli->prepare("SELECT * FROM lucas_news WHERE slug = ?");
+$statement->bind_param("s", $slug);
+$statement->execute();
 
-$result = $stmt->get_result();
+$result = $statement->get_result();
 $noticia = $result->fetch_assoc();
 
 if (!$noticia) {
@@ -27,21 +27,40 @@ if (!$noticia) {
   <meta charset="UTF-8">
   <title><?= htmlspecialchars($noticia['title']) ?></title>
   <link rel="stylesheet" href="../css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
   <div class="container">
-    <h1><?= htmlspecialchars($noticia['title']) ?></h1>
-    <p><strong>Publicado em:</strong> <?= date('d/m/Y H:i', strtotime($noticia['created_at'])) ?></p>
-    <?php if ($noticia['description']) { ?>
-      <p><em><?= htmlspecialchars($noticia['description']) ?></em></p>
-    <?php } ?>
-    <hr>
-    <div class="content">
-      <?= nl2br(htmlspecialchars($noticia['content'])) ?>
+    <div class="card">
+      <h1><?= htmlspecialchars($noticia['title']) ?></h1>
+      <p><strong>Publicado em:</strong> <?= date('d/m/Y H:i', strtotime($noticia['created_at'])) ?></p>
+
+      <?php if ($noticia['description']) { ?>
+        <p><em><?= htmlspecialchars($noticia['description']) ?></em></p>
+      <?php } ?>
+
+      <hr>
+
+      <div class="content">
+        <?= nl2br(htmlspecialchars($noticia['content'])) ?>
+      </div>
+
+      <hr>
+
+      <?php if ($noticia['keywords']) { ?>
+        <p><strong>Palavras-chave:</strong> <?= htmlspecialchars($noticia['keywords']) ?></p>
+      <?php } ?>
+      <div class="action-buttons">
+        <div>
+          <a href="/lucas">← Voltar</a>
+        </div>
+        <div>
+        <a href="../core/edit.php?slug=<?= urlencode($noticia['slug']) ?>" class="button edit">Editar</a>
+<a href="../core/delete.php?slug=<?= urlencode($noticia['slug']) ?>" class="button delete" onclick="return confirm('Tem certeza que deseja excluir esta notícia?')">Excluir</a>
+
+        </div>
+        </div>
     </div>
-    <hr>
-    <p><strong>Palavras-chave:</strong> <?= htmlspecialchars($noticia['keywords']) ?></p>
-    <a href="/lucas">← Voltar</a>
   </div>
 </body>
 </html>

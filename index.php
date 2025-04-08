@@ -33,6 +33,7 @@ if (!$mysqli->connect_errno) {
         <p><?= htmlspecialchars($item['description']) ?></p>
         <a href="./core/list.php?slug=<?= urlencode($item['slug']) ?>">Ler mais</a>
       </div>
+
     <?php endforeach; ?>
   </div>
 </body>

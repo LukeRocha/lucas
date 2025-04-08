@@ -81,3 +81,54 @@ h1 {
   padding: 1rem 0;
   line-height: 1.6;
 }
+
+.top-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.button {
+  background-color: #0077cc;
+  color: white;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  transition: background 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button:hover {
+  background-color: #0077cc;
+  transform: translateY(-1px);
+}
+
+.button.edit {
+  background-color: #005fa3;
+  color: white;
+}
+
+.button.edit:hover {
+  background-color: #005fa3;
+}
+
+.button.delete {
+  background-color: #cc0000;
+  color: white;
+}
+
+.button.delete:hover {
+  background-color: #a30000;
+}
+
+.card .action-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
