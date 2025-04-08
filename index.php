@@ -15,11 +15,11 @@ if (!$mysqli->connect_errno) {
 <head>
   <meta charset="UTF-8">
   <title>Notícias</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
   <div class="container">
-    <h1>Últimas Notícias</h1>
+    <h1>Últimas Notícias - Backsite</h1>
 
     <?php foreach ($news as $item): ?>
       <div class="card">

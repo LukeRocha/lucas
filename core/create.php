@@ -7,7 +7,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   $description = $_POST['description'] ?? '';
   $keywords = $_POST['keywords'] ?? '';
   $content= $_POST['content'] ?? '';
-}
+
 
 if($title && $slug && $content) {
   
@@ -25,6 +25,7 @@ if($title && $slug && $content) {
 } else {
   echo "Por favor preencha os campos obrigatórios";
 }
+}
 ?>
 
 
@@ -34,7 +35,7 @@ if($title && $slug && $content) {
 <head>
   <meta charset="UTF-8">
   <title>Criar Notícia</title>
-  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
   <div class="container">
@@ -59,7 +60,7 @@ if($title && $slug && $content) {
       <button type="submit">Salvar</button>
     </form>
 
-    <a href="index.php">← Voltar</a>
+    <a href="../index.php">← Voltar</a>
   </div>
 </body>
 </html>
