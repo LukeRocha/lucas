@@ -25,6 +25,10 @@ if (!$mysqli->connect_errno) {
 <body>
   <div class="container">
     <h1>Últimas Notícias - Backsite</h1>
+    <div class="button-wrapper">
+  <a href="./core/create.php" class="button create">+ Nova Notícia</a>
+</div>
+
 
     <?php foreach ($news as $item): ?>
       <div class="card">
