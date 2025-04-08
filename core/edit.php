@@ -8,10 +8,10 @@ if (!$slug) {
   exit;
 }
 
-$stmt = $mysqli->prepare("SELECT * FROM lucas_news WHERE slug = ?");
-$stmt->bind_param("s", $slug);
-$stmt->execute();
-$result = $stmt->get_result();
+$statement = $mysqli->prepare("SELECT * FROM lucas_news WHERE slug = ?");
+$statement->bind_param("s", $slug);
+$statement->execute();
+$result = $statement->get_result();
 $noticia = $result->fetch_assoc();
 
 if (!$noticia) {
@@ -26,13 +26,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $content = $_POST['content'] ?? '';
 
   if ($title && $content) {
-    $updateStmt = $mysqli->prepare("
+    $updateStatement = $mysqli->prepare("
       UPDATE lucas_news
-      SET title = ?, description = ?, keywords = ?, content = ? 
+      SET title = ?, description = ?, keywords = ?, content = ?
       WHERE slug = ?
     ");
-    $updateStmt->bind_param("sssss", $title, $description, $keywords, $content, $slug);
-    $updateStmt->execute();
+    $updateStatement->bind_param("sssss", $title, $description, $keywords, $content, $slug);
+    $updateStatement->execute();
 
     header("Location: ../index.php");
     exit;
