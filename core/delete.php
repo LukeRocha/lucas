@@ -8,9 +8,9 @@ if (!$slug) {
   exit;
 }
 
-$stmt = $mysqli->prepare("DELETE FROM lucas_news WHERE slug = ?");
-$stmt->bind_param("s", $slug);
-$stmt->execute();
+$statement = $mysqli->prepare("DELETE FROM lucas_news WHERE slug = ?");
+$statement->bind_param("s", $slug);
+$statement->execute();
 
 header("Location: ../index.php");
 exit;
