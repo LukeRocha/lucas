@@ -4,17 +4,22 @@ Este é um sistema de gerenciamento de notícias feito com PHP e MySQL.
 
 ## 📂 Estrutura do Projeto
 
-├── config/ 
-  │ └── db.php 
-  │ └── schema.sql 
-├── core/ 
-  │ ├── create.php # Criação de notícias 
-  │ ├── edit.php # Edição 
-  │ ├── delete.php # Exclusão 
-  │ ├── list.php # Visualização única 
-├── css/ 
-  │ └── style.css # Estilo
-├── index.php # Página inicial com listagem 
+├── config/  <br>
+
+ └── db.php <br>
+└── schema.sql <br>
+
+├── core/ <br>
+
+└── create.php # Criação de notícias <br>
+└── edit.php # Edição <br>
+└── delete.php # Exclusão <br>
+└──list.php # Visualização única <br>
+
+├── css/ <br>
+
+└── style.css # Estilo <br>
+└── index.php # Página inicial com listagem <br>
 
 ## ✅ Funcionalidades
 
