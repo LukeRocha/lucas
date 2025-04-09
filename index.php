@@ -3,7 +3,7 @@ require_once './config/db.php';
 $news = [];
 
 if (!$mysqli->connect_errno) {
-  $statement = $mysqli->prepare("SELECT title, slug, description, created_at FROM lucas_news ORDER BY created_at DESC LIMIT 10");
+  $statement = $mysqli->prepare("SELECT title, slug, description, created_at FROM lucas_news ORDER BY created_at DESC");
 
   if ($statement) {
     $statement->execute();
